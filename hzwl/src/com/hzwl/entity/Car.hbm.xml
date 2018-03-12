@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="com.hzwl.entity.Car" table="t_car">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="native"/>
+    </id>
+    <property name="cartype" type="java.lang.String">
+      <column name="cartype"/>
+    </property>
+    <property name="carnumber" type="java.lang.String">
+      <column name="carnumber"/>
+    </property>
+    <property name="carname" type="java.lang.String">
+      <column name="carname"/>
+    </property>
+    <property name="driver" type="java.lang.String">
+      <column name="driver"/>
+    </property>
+    <property name="nuclearload" type="int">
+      <column name="nuclearload"/>
+    </property>
+    <property name="mycheck" type="java.lang.String">
+      <column name="mycheck"/>
+    </property>
+  </class>
+  <query name="car.delete">
+  	DELETE FROM Car WHERE id=?
+  </query>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="com.hzwl.entity.Suggestion" table="t_suggestion">
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="native"/>
+    </id>
+    <property name="idea" type="java.lang.String">
+      <column name="idea"/>
+    </property>
+    <property name="handle" type="java.lang.String">
+      <column name="handle"/>
+    </property>
+  </class>
+  <query name="suggestion.delete">
+  	DELETE FROM Suggestion WHERE id=?
+  </query>
+  
+  <query name="suggestion.updata">
+  	UPDATE Suggestion SET handle='1' WHERE id=?
+  </query>
+</hibernate-mapping>

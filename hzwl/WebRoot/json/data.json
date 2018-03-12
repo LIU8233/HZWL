@@ -1,0 +1,5 @@
+[ 
+		{ "id":"1001", "pId":"100", "name":"修改密码", "page":"page_admin_editpwd.action"},
+		{ "id":"1002", "pId":"100", "name":"关于我们", "page":"page_admin_aboutus.action"},
+		{ "id":"1003", "pId":"100", "name":"退出登录", "page":"user_logout.action"}
+]

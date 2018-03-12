@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.objectFactory" value="spring"/>
+	<!-- 注册国际化文件 -->
+	<constant name="struts.custom.i18n.resources" value="message"></constant>
+	<package name="basicstruts2" extends="struts-default">
+		
+		<interceptors>
+			<!-- 注册拦截器 -->
+			<interceptor name="MyInterceptor" class="com.hzwl.interceptor.MyInterceptor">
+				<param name="excludeMethods">login</param>
+			</interceptor>
+			<!-- 拦截器栈 -->
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="MyInterceptor"/>
+				<interceptor-ref name="defaultStack"/>
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- 指定默认栈 -->
+		<default-interceptor-ref name="myStack"/>
+		
+		<global-results>
+			<result name="login">/login.jsp</result>
+			<result name="unauthorizedUrl">/404.html</result>
+		</global-results>
+		
+		<!-- 全局异常捕获 -->
+		<global-exception-mappings>
+			<exception-mapping result="unauthorizedUrl" 
+			exception="org.apache.shiro.authz.AuthorizationException"></exception-mapping>
+		</global-exception-mappings>
+		
+		<!-- 需要进行权限控制的页面访问 -->
+		<action name="page_*_*">
+			<result name="success" type="dispatcher">/WEB-INF/pages/{1}/{2}.jsp</result>
+		</action>
+		<action name="user_*" class="com.hzwl.controller.UserAction" method="{1}">
+			<result name="home" >/WEB-INF/pages/common/index.jsp</result>
+			<result name="list" >/WEB-INF/pages/admin/userlist.jsp</result>
+		</action>
+		<action name="main_*" class="com.hzwl.controller.MainAction" method="{1}">
+			<result name="success" type="dispatcher">/WEB-INF/pages/common/index.jsp</result>
+		</action>
+		<!-- 取派员管理 -->
+		<action name="staff_*" class="com.hzwl.controller.StaffAction" method="{1}">
+			<result name="list">/WEB-INF/pages/base/staff.jsp</result>
+		</action>
+		<!-- 区域管理 -->
+		<action name="region_*" class="com.hzwl.controller.RegionAction" method="{1}">
+			<result name="list">/WEB-INF/pages/base/region.jsp</result>
+		</action>
+		
+		<!-- 车辆设置 -->
+		<action name="car_*" class="com.hzwl.controller.CarAction" method="{1}">
+			<result name="list">/WEB-INF/pages/base/car.jsp</result>
+		</action>
+		
+		<!-- 分区管理 -->
+		<action name="subarea_*" class="com.hzwl.controller.SubareaAction" method="{1}">
+			<result name="list">/WEB-INF/pages/base/subarea.jsp</result>
+		</action>
+		<!-- 定区管理 -->
+		<action name="decide_*" class="com.hzwl.controller.DecidedzoneAction" method="{1}">
+			<result name="list">/WEB-INF/pages/base/decidedzone.jsp</result>
+		</action>
+		<!-- 订单受理 -->
+		<action name="notice_*" class="com.hzwl.controller.NoticeBillAction" method="{1}">
+			<result name="success">/WEB-INF/pages/business/noticebill_add.jsp</result>
+			<result name="list">/WEB-INF/pages/business/diaodu.jsp</result>
+		</action>
+		
+		<!-- 工单处理 -->
+		<action name="workbill_*" class="com.hzwl.controller.WorkBillAction" method="{1}">
+			
+		</action>
+		
+		<!-- 快速录入工作单 -->
+		<action name="work_*" class="com.hzwl.controller.WorkOrderAction" method="{1}">
+			<result name="list">/WEB-INF/pages/workflow/startransfer.jsp</result>
+			<result name="toList" type="redirectAction">work_list</result>
+		</action>
+		
+		<!-- 权限控制 -->
+		<action name="functionAction_*" class="com.hzwl.controller.FunctionAction" method="{1}">
+			<result name="list">/WEB-INF/pages/admin/function.jsp</result>
+		</action>
+		
+		<!-- 角色管理 -->
+		<action name="roleAction_*" class="com.hzwl.controller.RoleAction" method="{1}">
+			<result name="list">/WEB-INF/pages/admin/role.jsp</result>
+		</action>
+		
+		<!-- 系统管理 -->
+		<action name="sma_*" class="com.hzwl.controller.SystemManageAction" method="{1}">
+			
+		</action>
+		
+		<!-- 流程定义 -->
+		<action name="processDefinitionAction_*" class="com.hzwl.controller.ProcessDefinitionAction" method="{1}">
+			<result name="list">/WEB-INF/pages/workflow/processdefinition_list.jsp</result>
+			<result name="toList" type="redirectAction">processDefinitionAction_list</result>
+			<result name="showpng" type="stream">
+				<param name="contentType">image/png</param>
+				<param name="inputName">pngStream</param>
+				<!-- 
+					<param name="contentDisposition">attachment;filename="abc.png"</param>
+					<param name="bufferSize">1024</param>
+				 -->
+			</result>
+		</action>
+		
+		<!-- 流程实例 -->
+		<action name="processInstance_*" class="com.hzwl.controller.ProcessInstanceAction" method="{1}">
+			<result name="list">WEB-INF/pages/workflow/processinstance.jsp</result>
+			<result name="showImage">/WEB-INF/pages/workflow/image.jsp</result>
+			<result name="imageView" type="stream">
+				<param name="contentType">image/png</param>
+				<param name="inputName">imageStream</param>
+			</result>
+		</action>
+		
+		<!-- 任务管理 -->
+		<action name="task_*" class="com.hzwl.controller.TaskAction" method="{1}">
+			<result name="list">/WEB-INF/pages/workflow/grouptask.jsp</result>
+			<result name="toList" type="redirectAction">task_listGroupTask</result>
+			<result name="persontasklist">/WEB-INF/pages/workflow/personaltask.jsp</result>
+			<result name="check">/WEB-INF/pages/workflow/check.jsp</result>
+			<result name="topersonaltasklist" type="redirectAction">task_findPersonTask</result>
+		</action>
+		
+		<action name="bug_*" class="com.hzwl.controller.SuggestionAction"  method="{1}">
+			<result name="list">/WEB-INF/pages/admin/suggestion.jsp</result>
+			<result name="toList" type="redirectAction">bug_list</result>
+		</action>
+	</package>
+</struts>

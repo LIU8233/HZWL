@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.hzwl.entity.Region" table="t_region" catalog="db">
+        <id name="id" type="java.lang.String">
+            <column name="id" length="32" />
+            <generator class="uuid" />
+        </id>
+        <property name="province" type="java.lang.String">
+            <column name="province" length="50" />
+        </property>
+        <property name="city" type="java.lang.String">
+            <column name="city" length="50" />
+        </property>
+        <property name="district" type="java.lang.String">
+            <column name="district" length="50" />
+        </property>
+        <property name="postcode" type="java.lang.String">
+            <column name="postcode" length="50" />
+        </property>
+        <set name="subareas" inverse="true">
+            <key>
+                <column name="region_id" length="32" />
+            </key>
+            <one-to-many class="com.hzwl.entity.Subarea" />
+        </set>
+    </class>
+    <query name="region.delete">
+    	DELETE FROM Region  WHERE id = ?
+    </query>
+</hibernate-mapping>
