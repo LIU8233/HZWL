@@ -153,13 +153,19 @@
 		$.messager.alert("我们不一样","蠢蠢的程序猿");
 	}
 </script>
+<style type="text/css">
+
+}
+
+</style>
 </head>
 <body class="easyui-layout">
 	<div data-options="region:'north',border:false"
 		style="height:80px;background:url('./images/top.jpg') no-repeat right;">
-		<div>
-			<img src="${pageContext.request.contextPath }/images/logo.png"
-				border="0">
+		<div class="logoid">
+			<%-- <img src="${pageContext.request.contextPath }/images/logo.png"
+				border="0"> --%>
+				贺州物流管理系统
 		</div>
 		<div id="sessionInfoDiv"
 			style="position: absolute;right: 5px;top:10px;">

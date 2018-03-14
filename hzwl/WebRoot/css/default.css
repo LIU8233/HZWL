@@ -130,3 +130,10 @@ div.combobox-content {
 div.tree-node {
     height: 23px;
 }
+.logoid{
+	margin-top: 15px;
+	margin-left: 20px;
+	font-size: 40px;
+	color: #F5F5F5;
+	font-family: cursive;
+}
